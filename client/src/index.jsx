@@ -113,7 +113,7 @@ class App extends React.Component {
   toggle(e){
 
   	var boolCopy = Object.assign({}, this.state.bool)
-		  boolCopy[e.target.innerHTML = !this.state.bool[e.target.innerHTML]  
+		  boolCopy[e.target.innerHTML] = !this.state.bool[e.target.innerHTML]  
 			this.setState({
 				bool: boolCopy
 			})
