@@ -100,25 +100,6 @@ class App extends React.Component {
     })
   }
 
-  transformDisplayHTML(gen){
-  	console.log(gen)
-  	if (gen === 'hiphop'){
-  		return ['hiphop']
-  	} else if (gen === 'pop'){
-  		return ['pop']
-  	} else if (gen === 'electronic'){
-	    return ['electronic', 'dance']
-  	} else if (gen === 'country'){
-  		return ['country']
-  	} else if (gen === 'classical'){
-  		return ['classical', 'opera']
-  	} else if (gen === 'jazz'){
-  		return ['jazz', 'blues', 'rb']
-  	} else if (gen === 'rock'){
-      return ['rock', 'alternative', 'heavyMetal']
-  	}
-  }
-
   sendGenres(){
   	var toggled = []
   	for (let key in this.state.genres){
@@ -130,8 +111,19 @@ class App extends React.Component {
   }
 
   toggle(e){
+  	var genres 
 
-  	var genres = this.transformDisplayHTML(e.target.innerHTML)
+  	if (e.target.innerHTML === 'electronic'){
+	    genres = ['electronic', 'dance']
+  	} else if (e.target.innerHTML === 'classical'){
+  		genres = ['classical', 'opera']
+  	} else if (e.target.innerHTML === 'jazz'){
+  		genres = ['jazz', 'blues', 'rb']
+  	} else if (e.target.innerHTML === 'rock'){
+      genres = ['rock', 'alternative', 'heavyMetal']
+  	} else {
+  		genres = [e.target.innerHTML]
+  	}
   
   	var boolCopy = Object.assign({}, this.state.bool)
 		boolCopy[e.target.innerHTML] = !this.state.bool[e.target.innerHTML]  
