@@ -111,8 +111,14 @@ class App extends React.Component {
   }
 
   toggle(e){
-  	var genres 
 
+  	var boolCopy = Object.assign({}, this.state.bool)
+		  boolCopy[e.target.innerHTML = !this.state.bool[e.target.innerHTML]  
+			this.setState({
+				bool: boolCopy
+			})
+
+		var genres 
   	if (e.target.innerHTML === 'electronic'){
 	    genres = ['electronic', 'dance']
   	} else if (e.target.innerHTML === 'classical'){
@@ -125,11 +131,6 @@ class App extends React.Component {
   		genres = [e.target.innerHTML]
   	}
   
-  	var boolCopy = Object.assign({}, this.state.bool)
-		boolCopy[e.target.innerHTML] = !this.state.bool[e.target.innerHTML]  
-		this.setState({
-			bool: boolCopy
-		})
  
 		var that = this
   	var genresCopy = Object.assign({}, this.state.genres)
