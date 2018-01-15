@@ -1,0 +1,1 @@
+module.exports = 'AIzaSyAYr5rbc6ypkhaf6FbTAlqrpg_haI6Hlac'
