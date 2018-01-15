@@ -1,0 +1,89 @@
+<!DOCTYPE html> 
+<html>
+<head>
+  <link rel="stylesheet" href="">
+  <style>
+      #map {
+        height: 100%;
+      }
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script src="https://www.google.com/jsapi"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+  <div id="elevation" ></div>
+  <div id="map" ></div>
+   <script>
+   	google.load('visualization', '1', {packages: ['columnchart']});
+
+      function initMap(origin, destination) {
+        var path = [
+            {lat: 40.75048649999999,  lng: -73.976401000000001},  
+            {lat: 40.7464307, lng: -73.98984329999996}
+            ];  
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 8,
+          center: path[1],
+          mapTypeId: 'satellite'
+        });
+
+
+        var elevator = new google.maps.ElevationService;
+
+
+        displayPathElevation(path, elevator, map);
+      }
+
+      function displayPathElevation(path, elevator, map) {
+
+        new google.maps.Polyline({
+          path: path,
+          strokeColor: '#0000CC',
+          strokeOpacity: 0.4,
+          map: map
+        });
+
+
+        elevator.getElevationAlongPath({
+          'path': path,
+          'samples': 256
+        }, plotElevation);
+      }
+
+      function plotElevation(elevations, status) {
+        var chartDiv = document.getElementById('elevation_chart');
+        if (status !== 'OK') {
+      
+          chartDiv.innerHTML = 'Cannot show elevation: request failed because ' +
+              status;
+          return;
+        }
+
+        var chart = new google.visualization.ColumnChart(chartDiv);
+
+       
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Sample');
+        data.addColumn('number', 'Elevation');
+        for (var i = 0; i < elevations.length; i++) {
+          data.addRow(['', elevations[i].elevation]);
+        }
+
+
+        chart.draw(data, {
+          height: 150,
+          legend: 'none',
+          titleY: 'Elevation (m)'
+        });
+      }
+    </script>
+  <script src="bundle.js" ></script> 
+
+</body>
+</html>
